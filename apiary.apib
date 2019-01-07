@@ -1,0 +1,72 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# EZSend Store
+
+The EZCorp API is a REST-based API and covers three main functional areas: Accounts, Stores, and Admin.
+All amounts are in respective account/store local currencies, and not underlying token values.
+
+## Store Manager Authentication [/store/{store_id}/auth]
+
+### Authenticate store [POST]
+
+Authenticates the store associated with the given <store_id> using the given <password>. 
+Successful authentication returns an access token to be used as a Bearer token on authenticated endpoints. 
+Note that no refresh token is returned and the refresh grant type is not supported.
+
+
++ Request (application/json)
+    + Attributes (OAuth grant request)
+
++ Response 200 (application/json)
+    + Attributes (OAuth valid response)
+            
+## Store Manager Search Account [/store/{store_id}/accounts?account_id={account_id}]
+
+Retrieves the account associated with the given <account_id>, if present.
+
+### Search Account [GET]
+
++ Request (application/json)
+
+    + Header
+    
+            Authentication: Bearer JWT
+        
++ Response 200
+
+    + Body
+    
+            {
+                "name": "<name>",
+                "zip": "<zip>",
+                "confirmed": <confirmed>
+            }
+            
++ Response 204
+
++ Response 401
+
++ Response 403
+
+# Data Structures
+
+## OAuth grant request (object)
+
+    + `grant_type`: `password` (string, required)
+    + password: secretPassword (string, required)
+
+## OAuth jwt bearer grant request (object)
+
+    + `grant_type`: `urn:ietf:params:oauth:grant-type:jwt-bearer` (string, required)
+    + assertion: `eyJhbGciOiJIUzI1NiJ9.e30.XmNK3GpH3Ys_7wsYBfq4C3M6goz71I7dTgUkuIa5lyQ` (string, required)
+
+## OAuth valid response (object)
+
+    + `access_token`: `eyJhbGciOiJIUzI1NiJ9.e30.XmNK3GpH3Ys_7wsYBfq4C3M6goz71I7dTgUkuIa5lyQ` (string, required) - valid JWT
+    + `expires_in`: 300 (number, required)
+    + `token_type`: Bearer (string, required)
+
+## Server response (object)
+
+    + status: ok (string, required)
