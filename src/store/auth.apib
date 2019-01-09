@@ -1,0 +1,23 @@
+## Store Manager Authentication [/store/{store_id}/auth]
+
++ Parameters
+    + store_id: `Store12345` (string) - The id of the Store.
+
+### Authenticate store [POST]
+
+Authenticates the store associated with the given <store_id> using the given <password>. 
+Successful authentication returns an access token to be used as a Bearer token on authenticated endpoints. 
+Note that no refresh token is returned and the refresh grant type is not supported.
+
++ Request (application/json)
+    + Attributes
+        + `grant_type`: `password` (string, required)
+        + password: secretPassword (string, required)
+
++ Response 200 (application/json)
+    + Attributes
+        + `access_token`: `eyJhbGciOiJIUzI1NiJ9.e30.XmNK3GpH3Ys_7wsYBfq4C3M6goz71I7dTgUkuIa5lyQ` (string, required) - valid JWT
+        + `expires_in`: 300 (number, required)
+        + `token_type`: Bearer (string, required)
+
+    

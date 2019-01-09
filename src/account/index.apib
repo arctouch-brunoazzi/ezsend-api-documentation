@@ -1,10 +1,3 @@
-FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
-
-# EZSend
-
-The EZCorp API is a REST-based API and covers three main functional areas: Accounts, Stores, and Admin. All amounts are in respective account/store local currencies, and not underlying token values.
-
 # Group Accounts
 The account endpoints require an account id parameter which is a free-form string containing the digits (and only the digits) of the account phone number, including country/calling code, e.g. 14159442000, or 521551234. The format should be E.164, without the leading + symbol. All account endpoints are subject to rate limits associated with the given account id.
 
@@ -15,12 +8,7 @@ The account endpoints require an account id parameter which is a free-form strin
 
 + Model (application/json)
     ```
-        {
-            "name": "Lemony Snicket",
-            "zip": "456789",
-            "balance": 1337 ,
-            "confirmed": true
-        }
+        :[Account Model](model.json)
     ```
 
 ### Retrieve Account [GET]
@@ -77,9 +65,7 @@ Confirms the account associated with <account_id> using the given <confirmation_
 + Request (application/json)
     + Body
         ```
-            {
-                "code": "<confirmation_code>"
-            }
+            :[Confirm account body](confirmation-code-body.json)
         ```
 
 + Response 204
@@ -143,12 +129,7 @@ Transfers the given <amount> from the source account associated with <account_id
         ```
     + Body
         ```
-            {
-                "to": "<account_id>",
-                "name": "<name>",
-                "amount": 1000,
-                "memo": "<memo>"
-            }
+            :[Transfer body](transfer-body.json)
         ```
 + Response 200
 
@@ -180,58 +161,3 @@ Transfers the given <amount> from the source account associated with <account_id
     ```
         Source account has not yet been confirmed
     ```
-
-# Group Store
-            
-## Store Manager Authentication [/store/{store_id}/auth]
-
-+ Parameters
-    + store_id: `Store12345` (string) - The id of the Store.
-
-### Authenticate store [POST]
-
-Authenticates the store associated with the given <store_id> using the given <password>. 
-Successful authentication returns an access token to be used as a Bearer token on authenticated endpoints. 
-Note that no refresh token is returned and the refresh grant type is not supported.
-
-+ Request (application/json)
-    + Attributes
-        + `grant_type`: `password` (string, required)
-        + password: secretPassword (string, required)
-
-+ Response 200 (application/json)
-    + Attributes
-        + `access_token`: `eyJhbGciOiJIUzI1NiJ9.e30.XmNK3GpH3Ys_7wsYBfq4C3M6goz71I7dTgUkuIa5lyQ` (string, required) - valid JWT
-        + `expires_in`: 300 (number, required)
-        + `token_type`: Bearer (string, required)
-
-    
-
-## Store Manager Search Account [/store/{store_id}/accounts?account_id={account_id}]
-
-Retrieves the account associated with the given <account_id>, if present.
-
-### Search Account [GET]
-
-+ Request (application/json)
-
-    + Header
-    
-            Authentication: Bearer JWT
-        
-+ Response 200
-
-    + Body
-    
-            {
-                "name": "<name>",
-                "zip": "<zip>",
-                "confirmed": <confirmed>
-            }
-            
-+ Response 204
-
-+ Response 401
-
-+ Response 403
-

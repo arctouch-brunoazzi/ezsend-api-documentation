@@ -1,0 +1,6 @@
+{
+    "to": "<account_id>",
+    "name": "<name>",
+    "amount": 1000,
+    "memo": "<memo>"
+}

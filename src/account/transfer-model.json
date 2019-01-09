@@ -1,0 +1,13 @@
+{
+    "id": "<id>",
+    "txid": "<txid>",
+    "timestamp": "<timestamp>",
+    "type": "<type>",
+    "store": "<store_id>",
+    "from": "<from_account_id>",
+    "to": "<to_account_id>",
+    "amount": 1000,
+    "memo": "<memo>",
+    "fromBalance": "<fromBalance>",
+    "toBalance": "<toBalance>"
+}

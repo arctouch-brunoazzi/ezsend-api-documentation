@@ -1,0 +1,27 @@
+## Store Manager Search Account [/store/{store_id}/accounts?account_id={account_id}]
+
+Retrieves the account associated with the given <account_id>, if present.
+
+### Search Account [GET]
+
++ Request (application/json)
+
+    + Header
+    
+            Authentication: Bearer JWT
+        
++ Response 200
+
+    + Body
+    
+            {
+                "name": "<name>",
+                "zip": "<zip>",
+                "confirmed": <confirmed>
+            }
+            
++ Response 204
+
++ Response 401
+
++ Response 403
